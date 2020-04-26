@@ -20,6 +20,6 @@ Calculate 0+0, 0+1, 1+0, 1+1 in parallel using quantum computer (IBM Q).
    * `circuit.png`: Quantum circuit diagram.
    * `result.ssv`: Calculation results.
    
-2. `gnuplot plot.gp`  
+2. `gnuplot plot.gp` (Optional)  
    Following files will be generated:
    * `result.pdf`: Plot of `result.ssv`.
