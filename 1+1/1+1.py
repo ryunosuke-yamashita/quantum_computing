@@ -46,7 +46,9 @@ def main():
     ################# Print circuit ##################
     ##################################################
     circ_trans = transpile(circ)
-    circ_trans.draw(output="mpl", filename="./circuit.png", plot_barriers=True)
+    # circ_trans.draw(output="mpl", filename="./circuit.png", plot_barriers=True)
+    style = {"dpi":200, "showindex":True, "cregbundle":True, "margin":[1.5,1,0.5,1]}
+    circ_trans.draw(output="mpl", filename="./circuit.png", style=style, initial_state=True, plot_barriers=True, fold=20, justify="left")
 
     ##################################################
     #################### Run job #####################

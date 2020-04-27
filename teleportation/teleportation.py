@@ -75,7 +75,6 @@ def main():
     ##################################################
     result = job.result()
     result_dict = result.get_counts(circ_trans)
-    print(result_dict)
     ########## Export result ##########
     with open("result.ssv", "w") as file:
         file.write("# qubit(c_alice c_bob c1 c0) probability\n")
