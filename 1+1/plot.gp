@@ -1,3 +1,5 @@
+#!/usr/bin/env gnuplot
+
 MAKELEVEL =system('echo $MAKELEVEL')
 command_tex="\
 cat _TMP_.tex | sed 's/\\\\documentclass\\[10pt\\]{article}/\\\\documentclass\[10pt,a4paper,dvipdfmx\]{jarticle}/g' \
@@ -65,6 +67,7 @@ set style fill solid border lc "black"
 p \
 [][0:0.3] \
 "result.ssv" u 0:2:xtic(1) lc "purple" w boxes t "", \
+"" u 0:2:(sprintf("%3.4f",$2)) with labels t "" offset 0,0.5,
 
 ########
 set output
