@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S python3 -W ignore
 # coding: utf-8
 ################################################################################
 from __future__ import print_function
 import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
 import os
+import warnings
 import random
 import numpy as np
 from qiskit import (
@@ -15,8 +16,9 @@ from qiskit import (
     execute,
     transpile
 )
+warnings.simplefilter('ignore')
 ################################################################################
-
+###!/usr/bin/env PYTHONWARNINGS=ignore python3
 
 ##################################################
 ################### Token auth ###################
@@ -31,7 +33,87 @@ IBMQ.save_account(token, overwrite=True)
 ################## Set problem ###################
 ##################################################
 M = 15
+N = 4
+x = 0  # Initialization
+r = 0  # Initialization
 
+
+################################################################################
+##################################### Main #####################################
+################################################################################
+def main():
+    ########## Global definition ##########
+    global M, N, x, r
+    
+    ##################################################
+    ##################### Step 1 #####################
+    ##################################################
+    print("########## Step 1 ##########")
+    check_even_odd()
+
+    ##################################################
+    ##################### Step 2 #####################
+    ##################################################
+    print("########## Step 2 ##########")
+    check_exp()
+
+    ##################################################
+    ##################### Step 3 #####################
+    ##################################################
+    print("########## Step 3 ##########")
+    pick_random_x()
+
+    ##################################################
+    ##################### Step 4 #####################
+    ##################################################
+    print("########## Step 4 ##########")
+    
+    ########## Make circuit ##########
+    circ = make_circuit()
+    
+    ########## Print circuit ##########
+    circ_trans = transpile(circ)
+    style = {"dpi":200, "showindex":True, "cregbundle":True, "margin":[1.5,1,0.5,1]}
+    circ_trans.draw(output="mpl", filename="./circuit.png",
+                    style=style, initial_state=True, plot_barriers=True, fold=20,)
+
+    ########## Run job ##########
+    backend = Aer.get_backend("qasm_simulator")
+    shots = 4096
+    job = execute(circ_trans, backend=backend, shots=shots)
+
+    ########## Print result ##########
+    result = job.result()
+    result_dict = result.get_counts(circ_trans)
+    
+    ########## Export result ##########
+    with open("result.ssv", "w") as file:
+        file.write("# qubit probability\n")
+        for i in result_dict:
+            file.write("{0} {1:.8E}\n".format(i, result_dict[i]/shots))
+            
+    ##################################################
+    ##################### Step 5 #####################
+    ##################################################
+    print("########## Step 5 ##########")
+    find_factor()
+
+
+################################################################################
+################################################################################
+################################################################################
+def find_factor():
+    if r % 2 == 0:
+        print("r = {} is even number, continue...".format(r))
+    else:
+        print("r = {} is odd number, exit.".format(r))
+        quit(0)
+    f1 = gcd(x1=x**(r//2)-1, x2=M)
+    f2 = gcd(x1=x**(r//2)+1, x2=M)
+    print("At least one of followings will be the answer:")
+    print("Answer1: {} = {} * {}".format(M, f1, M//f1))
+    print("Answer2: {} = {} * {}".format(M, f2, M//f2))
+    
 
 ################################################################################
 ################################################################################
@@ -63,7 +145,8 @@ def pick_random_x():
         print("Answer: {} = {} * {}".format(M, g, M//g))
         quit(0)
         x = random.randint(1, M-1)
-    return x
+    print("x = {} is picked up, continue...".format(x))
+    # return x
 
 
 ################################################################################
@@ -95,15 +178,12 @@ def check_even_odd():
         quit(0)
     else:
         print("M does NOT contain 2 as a factor, continue...")
-        
+
 
 ################################################################################
-##################################### Main #####################################
 ################################################################################
-def main():
-    ##################################################
-    ################## Make circuit ##################
-    ##################################################
+################################################################################
+def make_circuit():
     ########## Initialization ##########
     qr = QuantumRegister(5)
     cr = ClassicalRegister(4)
@@ -141,31 +221,8 @@ def main():
     ########## Measurement ##########
     circ.barrier()
     circ.measure([0,1,2,3], [3,2,1,0])
-
-    ##################################################
-    ################# Print circuit ##################
-    ##################################################
-    circ_trans = transpile(circ)
-    style = {"dpi":200, "showindex":True, "cregbundle":True, "margin":[1.5,1,0.5,1]}
-    circ_trans.draw(output="mpl", filename="./circuit.png", style=style, initial_state=True, plot_barriers=True, fold=20, justify="left")
-
-    ##################################################
-    #################### Run job #####################
-    ##################################################
-    backend = Aer.get_backend("qasm_simulator")
-    shots = 4096
-    job = execute(circ_trans, backend=backend, shots=shots)
-
-    ##################################################
-    ################## Print result ##################
-    ##################################################
-    result = job.result()
-    result_dict = result.get_counts(circ_trans)
-    ########## Export result ##########
-    with open("result.ssv", "w") as file:
-        file.write("# qubit probability\n")
-        for i in result_dict:
-            file.write("{0} {1:.8E}\n".format(i, result_dict[i]/shots))
+    ########## Return circuit ##########
+    return circ
 
             
 ################################################################################
