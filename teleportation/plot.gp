@@ -1,3 +1,5 @@
+#!/usr/bin/env gnuplot
+
 MAKELEVEL =system('echo $MAKELEVEL')
 command_tex="\
 cat _TMP_.tex | sed 's/\\\\documentclass\\[10pt\\]{article}/\\\\documentclass\[10pt,a4paper,dvipdfmx\]{jarticle}/g' \
