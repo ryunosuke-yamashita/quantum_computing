@@ -20,7 +20,7 @@ from qiskit import (
 ##################################################
 ################### Token auth ###################
 ##################################################
-token_path = os.environ["HOME"] + "/" + ".IBMQ_token"
+token_path = "../IBMQ_token"
 with open(token_path, "r") as file:
     token = file.read()
 IBMQ.save_account(token, overwrite=True)

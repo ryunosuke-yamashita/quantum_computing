@@ -4,7 +4,6 @@
 from __future__ import print_function
 import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
 import os
-import warnings
 import random
 import numpy as np
 from qiskit import (
@@ -16,14 +15,13 @@ from qiskit import (
     execute,
     transpile
 )
-warnings.simplefilter('ignore')
 ################################################################################
-###!/usr/bin/env PYTHONWARNINGS=ignore python3
+
 
 ##################################################
 ################### Token auth ###################
 ##################################################
-token_path = os.environ["HOME"] + "/" + ".IBMQ_token"
+token_path = "../IBMQ_token"
 with open(token_path, "r") as file:
     token = file.read()
 IBMQ.save_account(token, overwrite=True)
@@ -33,7 +31,7 @@ IBMQ.save_account(token, overwrite=True)
 ################## Set problem ###################
 ##################################################
 M = 15
-N = 4
+N = 4  # Satisfy 2^N > M
 x = 0  # Initialization
 r = 0  # Initialization
 
@@ -42,7 +40,7 @@ r = 0  # Initialization
 ##################################### Main #####################################
 ################################################################################
 def main():
-    ########## Global definition ##########
+    ########## Global variables ##########
     global M, N, x, r
     
     ##################################################
@@ -69,6 +67,7 @@ def main():
     print("########## Step 4 ##########")
     
     ########## Make circuit ##########
+    x = 7; print("DEBUG FIX: x = {} !!!!!!!!!!".format(x))
     circ = make_circuit()
     
     ########## Print circuit ##########
@@ -195,11 +194,18 @@ def make_circuit():
     circ.x(4)
     ########## Order finding ########## <- Incorrect!!
     circ.barrier()
+    # repetitions = 1
+    # for counting_qubit in range(4):
+    #     for i in range(repetitions):
+    #         circ.cu1(np.pi/4, counting_qubit, 4)
+    #     repetitions *= 2
+    angle = 2*np.pi/4
     repetitions = 1
     for counting_qubit in range(4):
         for i in range(repetitions):
-            circ.cu1(np.pi/4, counting_qubit, 4)
+            circ.cu1(angle, counting_qubit, 4)
         repetitions *= 2
+        
     ########## QFT^(-1) ########## <- May be correct
     circ.barrier()
     circ.swap(0, 3)
