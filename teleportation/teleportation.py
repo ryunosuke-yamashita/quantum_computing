@@ -2,8 +2,9 @@
 # coding: utf-8
 ################################################################################
 from __future__ import print_function
-# import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
+import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
 import os
+import numpy as np
 from qiskit import (
     IBMQ,
     QuantumRegister,
@@ -32,17 +33,22 @@ def main():
     ##################################################
     ################## Make circuit ##################
     ##################################################
-    q_alice = QuantumRegister(2)
-    q_bob = QuantumRegister(1)
+    q_alice = QuantumRegister(2, "q(alice)")
+    q_bob = QuantumRegister(1, "q(bob)")
     c0 = ClassicalRegister(1)
     c1 = ClassicalRegister(1)
-    c_bob = ClassicalRegister(1)
-    c_alice = ClassicalRegister(1)
-    circ = QuantumCircuit(q_alice, q_bob, c0, c1, c_bob, c_alice)
-    circ.h(0)
+    c_bob = ClassicalRegister(1, "c(bob)")
+    # c_alice = ClassicalRegister(1, "c(alice)")
+    circ = QuantumCircuit(q_alice, q_bob, c0, c1, c_bob)
+    ########## Initialization ##########
+    alpha = 1/2
+    beta = np.sqrt(3)/2
+    circ.initialize([alpha, beta], q_alice[0])
     circ.h(1)
-    circ.barrier()
-    circ.measure(q_alice[0], c_alice)
+    ########## Wiretapping Alice ##########
+    # circ.barrier()
+    # circ.measure(q_alice[0], c_alice)
+    ########## Main part ##########
     circ.barrier()
     circ.cx(q_alice[1], q_bob)
     circ.cx(q_alice[0], q_alice[1])
@@ -53,6 +59,7 @@ def main():
     circ.barrier()
     circ.x(q_bob).c_if(c1, 1)
     circ.z(q_bob).c_if(c0, 1)
+    ########## Measurement ##########
     circ.barrier()
     circ.measure(q_bob, c_bob)
 

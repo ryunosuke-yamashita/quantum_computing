@@ -13,11 +13,15 @@
 
 0. Create your IBM Q token file to `~/.IBMQ_token`.
 
-1. `python 1+1.py`  
+1. `chmod u+x 1+1.py ssv2ssv.pl`.
+
+2. `python 1+1.py`  
    Following files will be generated:
    * `circuit.png`: Quantum circuit diagram.
    * `result.ssv`: Calculation results.
+
+3. `./ssv2ssv.pl > result_bob.ssv`
    
-2. `gnuplot plot.gp` (Optional)  
+4. `gnuplot plot.gp` (Optional)  
    Following files will be generated:
-   * `result.pdf`: Plot of `result.ssv`.
+   * `result.pdf`: Plot of `result_bob.ssv`.

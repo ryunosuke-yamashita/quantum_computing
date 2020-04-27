@@ -53,18 +53,19 @@ set output "_TMP_.tex"
 
 ########
 set title 'Number of shots = 4096,\ \ \ $\sum_{\psi} p(\psi) = 1$'
-set xlabel 'Measured qubits, $\ket{\psi} = \ket{\mathrm{c_{Alice} c_{Bob} c_1 c_0}}$'
+set xlabel 'Measured qubits, $\ket{\psi} = \ket{\mathrm{c_{Bob}}}$'
 set ylabel 'Measured probabilities, $p(\psi)$'
 # set ytics 20
-set mytics 2
+#set mytics 2
 set xtics scale 0
-set boxwidth 0.5 relative
+set boxwidth 0.3 relative
 set style fill solid border lc "black"
 
 ########
 p \
-[][0:0.14] \
-"result.ssv" u 0:2:xtic(1) lc "purple" w boxes t "", \
+[][0:1.0] \
+"result_bob.ssv" u 0:2:xtic(1) lc "purple" w boxes t "", \
+"" u 0:2:(sprintf("%3.4f",$2)) with labels t "" offset 0,0.5,
 
 ########
 set output
