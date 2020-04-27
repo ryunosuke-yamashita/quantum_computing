@@ -68,7 +68,8 @@ def main():
     ##################################################
     circ_trans = transpile(circ)
     style = {"dpi":200, "showindex":True, "cregbundle":False, "margin":[1.5,1,0.5,1]}
-    circ_trans.draw(output="mpl", filename="./circuit.png", style=style, initial_state=True, plot_barriers=True, fold=20, justify="left")
+    circ_trans.draw(output="mpl", filename="./circuit.png",
+                    style=style, initial_state=True, plot_barriers=True, fold=20)
 
     ##################################################
     #################### Run job #####################
