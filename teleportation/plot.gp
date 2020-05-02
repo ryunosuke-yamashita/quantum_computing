@@ -54,11 +54,11 @@ filename="result.pdf"
 set output "_TMP_.tex"
 
 ########
-set title 'Number of shots = 4096,\ \ \ $\sum_{\psi} p(\psi) = 1$'
-set xlabel 'Measured qubits, $\ket{\psi} = \ket{\mathrm{c_{Bob}}}$'
-set ylabel 'Measured probabilities, $p(\psi)$'
+set title 'Number of shots = 4096,\ \ \ $\sum_{m} p(m) = 1$'
+set xlabel 'Measured qubit, $\ket{m} = \ket{m_{\mathrm{Bob}}}$'
+set ylabel 'Measured probabilities, $p(m)$'
 # set ytics 20
-#set mytics 2
+set mytics 2
 set xtics scale 0
 set boxwidth 0.3 relative
 set style fill solid border lc "black"

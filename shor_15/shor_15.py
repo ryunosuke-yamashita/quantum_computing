@@ -6,6 +6,7 @@ import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
 import os
 import random
 import numpy as np
+import qiskit
 from qiskit import (
     IBMQ,
     QuantumRegister,
@@ -13,7 +14,7 @@ from qiskit import (
     QuantumCircuit,
     Aer,
     execute,
-    transpile
+    transpile,
 )
 ################################################################################
 
@@ -192,21 +193,16 @@ def make_circuit():
     circ.h(2)
     circ.h(3)
     circ.x(4)
-    ########## Order finding ########## <- Incorrect!!
+    ########## Order finding ########## <- Under development
     circ.barrier()
+    # angle = 2*np.pi/4
     # repetitions = 1
     # for counting_qubit in range(4):
     #     for i in range(repetitions):
-    #         circ.cu1(np.pi/4, counting_qubit, 4)
+    #         circ.cu1(angle, counting_qubit, 4)
     #     repetitions *= 2
-    angle = 2*np.pi/4
-    repetitions = 1
-    for counting_qubit in range(4):
-        for i in range(repetitions):
-            circ.cu1(angle, counting_qubit, 4)
-        repetitions *= 2
         
-    ########## QFT^(-1) ########## <- May be correct
+    ########## QFT^(-1) ##########
     circ.barrier()
     circ.swap(0, 3)
     circ.swap(1, 2)

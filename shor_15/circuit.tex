@@ -1,0 +1,21 @@
+\documentclass[10pt,a4paper,dvipdfmx]{jarticle}
+\usepackage{tikz}
+\usetikzlibrary{quantikz}
+\usepackage{preview}
+\begin{document}
+\pagestyle{empty}
+\begin{quantikz}
+  \lstick[wires=4]{$\ket{0_{(10)}}$} \hspace{1em}
+  & \lstick{$\ket{0}$} & \gate{H} & \qw      & \qw      & \qw      & \ctrl{4} & \gate[wires=4]{\mathrm{QFT}_4^{\dagger}} & \meter{} & \cw & \rstick[wires=4]{$\ket{\frac{\tilde{s}}{r}_{(10)}}$} \\
+  & \lstick{$\ket{0}$} & \gate{H} & \qw      & \qw      & \ctrl{3} & \qw      & & \meter{} & \cw & \\
+  & \lstick{$\ket{0}$} & \gate{H} & \qw      & \ctrl{2} & \qw      & \qw      & & \meter{} & \cw & \\
+  & \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \qw      & \qw      & \qw      & & \meter{} & \cw & \\
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \lstick[wires=4]{$\ket{1_{(10)}}$} \hspace{1em}
+  & \lstick{$\ket{0}$} & \qw      & \gate[wires=4]{U^{2^0}} & \gate[wires=4]{U^{2^1}} & \gate[wires=4]{U^{2^2}} & \gate[wires=4]{U^{2^3}} & \qw & \qw & \qw \\
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  & \lstick{$\ket{0}$} & \qw      &          &          &          &          & \qw & \qw & \qw \\
+  & \lstick{$\ket{0}$} & \qw      &          &          &          &          & \qw & \qw & \qw \\
+  & \lstick{$\ket{1}$} & \qw      &          &          &          &          & \qw & \qw & \qw \\
+\end{quantikz}
+\end{document}

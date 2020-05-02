@@ -1,0 +1,13 @@
+\documentclass[10pt,a4paper,dvipdfmx,landscape]{jarticle}
+\usepackage{tikz}
+\usetikzlibrary{quantikz}
+\usepackage{preview}
+\begin{document}
+\pagestyle{empty}
+\begin{quantikz}
+  \lstick{$\ket{q_0}=\ket{0}$} & \gate{H} & \ctrl{2} & \ctrl{3} & \qw      & \meter{} & \cw \\
+  \lstick{$\ket{q_1}=\ket{0}$} & \gate{H} & \ctrl{}  & \qw      & \ctrl{2} & \meter{} & \cw \\
+  \lstick{$\ket{q_2}=\ket{0}$} & \qw      & \targ{}  & \qw      & \qw      & \meter{} & \cw \\
+  \lstick{$\ket{q_3}=\ket{0}$} & \qw      & \qw      & \targ{}  & \targ{}  & \meter{} & \cw \\
+\end{quantikz}
+\end{document}
