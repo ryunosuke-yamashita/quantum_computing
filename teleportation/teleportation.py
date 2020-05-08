@@ -3,7 +3,6 @@
 ################################################################################
 from __future__ import print_function
 import tbvaccine as tb; tb.add_hook(isolate=False, show_vars=False)
-import os
 import numpy as np
 from qiskit import (
     IBMQ,
