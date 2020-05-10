@@ -1,8 +1,8 @@
 # Shor's Algorithm (15 = 3*5)
 
-Implementation of Shor's algorithm (15 = 3*5) based on Dr. Abe [^1]'s lecture at Keio university.
+Implementation of Shor's algorithm (15 = 3*5) based on [Dr. Abe]'s lecture at Keio university.
 
-[^1]: https://www.appi.keio.ac.jp/Itoh_group/abe/english.html
+[Dr. Abe]: https://www.appi.keio.ac.jp/Itoh_group/abe/english.html
 
 <!-- ================================================================================ -->
 <!-- ================================================================================ -->
